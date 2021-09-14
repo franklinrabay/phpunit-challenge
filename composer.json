@@ -1,0 +1,18 @@
+{
+  "description": "Glambou PHP unit project",
+  "minimum-stability": "stable",
+  "name": "vendor_name/phpunit",
+  "require": {
+    "phpunit/phpunit": ">=9.5.9"
+  },
+  "autoload": {
+    "psr-4": {
+      "Glambou\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Glambou\\Test\\": "test"
+    }
+  }
+}

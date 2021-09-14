@@ -1,0 +1,8 @@
+version: '3.8'
+
+services:
+  php-fpm:
+    build:
+      context: docker
+    volumes:
+      - ./:/var/www
