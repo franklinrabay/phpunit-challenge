@@ -4,6 +4,11 @@ namespace Glambou\Test\Controller;
 
 use Glambou\Model\Customer;
 
+// MOCKING - DEPENDENCY INJECTION
+// DATAPROVIDERS - USE CASES
+// HANDLE EXCEPTIONS - DIFFERENT TEST CASE
+
+
 class CustomerControllerTest extends \PHPUnit\Framework\TestCase
 {
     public function testFoo(): void
