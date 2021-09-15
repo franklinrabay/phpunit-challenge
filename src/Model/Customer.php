@@ -22,7 +22,8 @@ class Customer
      */
     public function setName(string $name): Customer
     {
-        $this->name = $name;
+        $this->name = $name.' Bartosz';
+
         return $this;
     }
 

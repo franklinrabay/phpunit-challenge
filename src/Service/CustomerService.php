@@ -21,10 +21,32 @@ class CustomerService implements CustomerServiceInterface
      *
      * @return Customer
      */
-    public function getCustomer(): Customer
+    public function getCustomer(int $customerID): ?Customer
     {
-        $customer = $this->databaseService->findByID(1);
+        $customer = $this->databaseService->findByID($customerID);
 
-        return $customer[0];
+        return $customer[0] ?? null;
+    }
+
+    /**
+     * @param Customer $customer
+     *
+     * @param string $rule
+     */
+    public function resolveCustomerName(Customer $customer, ?string $rule): void
+    {
+        if ($rule && $rule == 'resetName') {
+            $customer->setName('');
+        }
+    }
+
+    /**
+     * @param Customer $customer
+     *
+     * @param string $test
+     */
+    public function appendEmail(Customer $customer, string $text): void
+    {
+        $customer->setEmail($customer->getEmail().' '.$text);
     }
 }
