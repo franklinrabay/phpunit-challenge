@@ -10,9 +10,9 @@ class Controller
      *
      * @return string
      */
-    protected function getParam(string $name): string
+    protected function getParam(string $name, array $parameterBag): ?string
     {
-       return $name;
+       return $parameterBag[$name] ?? null;
     }
 
     /**

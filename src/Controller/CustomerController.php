@@ -3,52 +3,60 @@
 namespace Glambou\Controller;
 
 use Glambou\Model\Customer;
-use Glambou\Service\ConnectionService;
-use Glambou\Service\CustomerService;
-use Glambou\Service\DatabaseService;
+use Glambou\Service\CustomerServiceInterface;
+
 
 class CustomerController extends Controller
 {
+    private CustomerServiceInterface $customerService;
+
+    public function __construct(CustomerServiceInterface $customerService)
+    {
+        $this->customerService = $customerService;
+    }
+
     /**
      * @throws \Exception
      *
      * @return Customer
      */
-    public function indexAction(): Customer
+    public function getCustomerAction(array $parameterBag): Customer
     {
-        $customerID = $this->getParam('1');
-        $resetName = $this->getParam('resetName');
+        // Too much if statements
+        // Too much logic
+        // Object creation - Dependency resolution
 
-        $customerService = new CustomerService(
-            new DatabaseService(
-                new ConnectionService('database domain')
-            )
-        );
+        $customerID = $this->getParam('id', $parameterBag);
+        $resetName = $this->getParam('rule', $parameterBag);
 
-        if ($customerID != 1) {
+        // 2 test cases
+        // 1 - customerID > 1
+        // 2 - customerID < 1
+        if ($customerID < 1) {
             throw new \Exception('ID not valid');
         }
 
-        if ($this->getHeader('Header1') == 'OK') {
-            $customer = $customerService->getCustomer();
-        } elseif ($this->getHeader('Header2') == 'OK') {
-            $customer = new Customer();
-        } else {
-            $customer = null;
+        //Mocked function call
+        $customer = $this->customerService->getCustomer($customerID);
+
+        if (!$customer) {
+            throw new \Exception('I dont have customer');
         }
 
-        if ($customer) {
-            if ($resetName === 'resetName') {
-                $customer->clearName();
-            }
+        // resetName
+        // not reseting the name
+        $this->customerService->resolveCustomerName($customer, $resetName);
+        $this->customerService->appendEmail($customer, 'Make it happen');
 
-            $customer->appendEmail('Make it complex');
-
-            if ($customer->name === '') {
-                return $customer;
-            }
-        }
-
+        // assertEquals()
         return $customer;
+    }
+
+    //TODO: Based on header - get Empty Customer
+    public function getAction()
+    {
+        // get the parameter from request
+        // call the service
+        // return the value
     }
 }
